@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h2 id="site">Site</h2>
+    <canvas id="qr"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js" integrity="sha256-25ncr0CpJhgbzkUiR3wu/Fkk9sSykRG2qX+upHfJUos=" crossorigin="anonymous"></script>
+    <script>
+      (function() {
+        var qr = new QRious({
+          element: document.getElementById('qr'),
+          value: document.referrer
+        });
+
+        document.getElementById("site").innerText = document.referrer;
+      })();
+    </script>
+  </body>
+</html>
