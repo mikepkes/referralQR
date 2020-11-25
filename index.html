@@ -4,14 +4,38 @@
     <canvas id="qr"></canvas>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js" integrity="sha256-25ncr0CpJhgbzkUiR3wu/Fkk9sSykRG2qX+upHfJUos=" crossorigin="anonymous"></script>
     <script>
-      (function() {
+      var qs = (function(a) {
+        if (a == "") return {};
+        var b = {};
+        for (var i = 0; i < a.length; ++i)
+        {
+          var p=a[i].split('=', 2);
+          if (p.length == 1)
+            b[p[0]] = "";
+          else
+            b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+       }
+       return b;
+     })(window.location.search.substr(1).split('&'));
+
+      var qrify = (function(url) {
         var qr = new QRious({
           element: document.getElementById('qr'),
-          value: document.referrer
+          value: url
         });
+      });
 
-        document.getElementById("site").innerText = document.referrer;
-      })();
+      console.log(qs);
+      if( qs['url'] ) {
+        qrify(qs['url']);
+	document.getElementById("site").innerText = qs['url']
+      }
+      else {
+        qrify(document.referrer);
+	document.getElementById("site").innerText = document.referrer
+      }
+
+
     </script>
   </body>
 </html>
